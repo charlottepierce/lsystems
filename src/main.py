@@ -15,7 +15,7 @@ if __name__ == '__main__':
 #
 # 	win.exitonclick()
 
-	cmd = CommandString('b', [('a', 'ab'), ('b', 'a')], 1, 1)
+	cmd = CommandString('b', {'a' : 'ab', 'b' : 'a'}, 1, 1)
 
 	print 'Intial:', cmd.command_string
 	for x in range(5):

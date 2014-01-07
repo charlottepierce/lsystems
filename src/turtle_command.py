@@ -13,8 +13,8 @@ class CommandString():
 		----
 			initiator: the initial command string
 			production: the rules by which to generate subsequent command strings.
-				Should be a list of tuples in the form `(prev, replacement)` where `prev` is
-				a single character. Whenever a subsequent command string is generated each
+				Should be a dictionary with entires in the form `prev : replacement` where `prev`
+				is a single character. Whenever a subsequent command string is generated each
 				instance of `prev` is replaced with it's corresponding `replacement`.
 				Productions are applied in parallel, and it is assumed that each `prev` in
 				the set of productions is unique (i.e., that productions are mutually
@@ -38,14 +38,5 @@ class CommandString():
 
 		'''
 
-		new = ''
-		for char in self.command_string:
-			replacement = ''
-			for production in self.productions:
-				if char == production[0]:
-					replacement = production[1]
-
-			new += replacement
-
-		self.command_string = new
+		self.command_string = ''.join([self.productions[char] for char in self.command_string])
 

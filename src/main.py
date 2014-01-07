@@ -17,8 +17,8 @@ if __name__ == '__main__':
 
 	cmd = CommandString('b', {'a' : 'ab', 'b' : 'a'}, 1, 1)
 
-	print 'Intial:', cmd.command_string
+	print 'Intial:', cmd.command_string, cmd.step_size
 	for x in range(5):
 		cmd.evolve()
-		print 'Next:', cmd.command_string
+		print 'Next:', cmd.command_string, cmd.step_size
 

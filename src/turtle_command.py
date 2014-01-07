@@ -1,8 +1,9 @@
 class CommandString():
 	''' A command string describing the movement pattern of a turtle.
 
-	Consists of an initial movement pattern and a series of rules
-	by which the movement pattern evolves over time.
+	Consists of an initial movement pattern - where each character indicates
+	a single movement - and a series of rules by which the movement pattern
+	evolves over time.
 
 	'''
 
@@ -20,7 +21,7 @@ class CommandString():
 				the set of productions is unique (i.e., that productions are mutually
 				exclusive).
 			step_size: the amount by which to move forward in a single step
-			angle_inc: the amount by which to turn when directed to do so
+			angle_inc: the amount - in degrees - by which to turn when directed to do so
 
 		'''
 
@@ -38,5 +39,10 @@ class CommandString():
 
 		'''
 
+		# create new command string
+		prev = self.command_string
 		self.command_string = ''.join([self.productions[char] for char in self.command_string])
+ 		# reduce step size appropriately
+		divisor = float(len(self.command_string)) / float(len(prev))
+		self.step_size /= divisor
 

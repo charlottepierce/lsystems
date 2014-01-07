@@ -1,16 +1,51 @@
 class CommandString():
-	def __init__(initiator, productions, step_size, angle_inc):
+	''' A command string describing the movement pattern of a turtle.
+
+	Consists of an initial movement pattern and a series of rules
+	by which the movement pattern evolves over time.
+
+	'''
+
+	def __init__(self, initiator, productions, step_size, angle_inc):
 		''' Create a new command string.
 
 		args
 		----
 			initiator: the initial command string
 			production: the rules by which to generate subsequent command strings.
-				Should be a list of tuples in the form `(prev, replacement)` - whenever
-				a subsequent command string is generated the each instance of `prev` is
-				replaced with it's corresponding `replacement`.
+				Should be a list of tuples in the form `(prev, replacement)` where `prev` is
+				a single character. Whenever a subsequent command string is generated each
+				instance of `prev` is replaced with it's corresponding `replacement`.
+				Productions are applied in parallel, and it is assumed that each `prev` in
+				the set of productions is unique (i.e., that productions are mutually
+				exclusive).
 			step_size: the amount by which to move forward in a single step
 			angle_inc: the amount by which to turn when directed to do so
 
 		'''
+
+		self.command_string = initiator
+		self.productions = productions
+		self.step_size = step_size
+		self.angle_increment = angle_inc
+
+	def evolve(self):
+		''' Evolve the command string to its next version, according to the productions.
+
+		Productions are applied in parallel (i.e., all at once) to avoid infinite looping
+		of production applications, hence incorrect evolutions. This works on under the
+		assumption that productions are mutually exclusive, with single-character predicates.
+
+		'''
+
+		new = ''
+		for char in self.command_string:
+			replacement = ''
+			for production in self.productions:
+				if char == production[0]:
+					replacement = production[1]
+
+			new += replacement
+
+		self.command_string = new
 

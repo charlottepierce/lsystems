@@ -9,6 +9,8 @@ if __name__ == '__main__':
 
 	turtle = turtle.Turtle()
 	turtle.pensize(3)
+	start_pos = turtle.pos()
+	start_heading = turtle.heading()
 
 	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 50, 45)
 
@@ -27,6 +29,8 @@ if __name__ == '__main__':
 				turtle.right(cmd.angle_increment)
 
 		cmd.evolve()
+		turtle.penup()
+		turtle.home()
 
 	win.exitonclick()
 

@@ -4,21 +4,29 @@ import turtle
 from turtle_command import CommandString
 
 if __name__ == '__main__':
-# 	win = turtle.Screen()
-# 	win.title('L-Systems with turtle graphics')
-#
-# 	turtle = turtle.Turtle()
-# 	turtle.pensize(3)
-#
-# 	turtle.left(90)
-# 	turtle.forward(75)
-#
-# 	win.exitonclick()
+	win = turtle.Screen()
+	win.title('L-Systems with turtle graphics')
 
-	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 1, 1)
+	turtle = turtle.Turtle()
+	turtle.pensize(3)
 
-	print 'Intial:', cmd.command_string, cmd.step_size
-	for x in range(5):
+	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 50, 45)
+
+	for x in range(2):
+		print 'Command:', cmd.command_string
+		for c in cmd.command_string:
+			if c == 'F':
+				turtle.pendown()
+				turtle.forward(cmd.step_size)
+			elif c == 'f':
+				turtle.penup()
+				turtle.forward(cmd.step_size)
+			elif c == '+':
+				turtle.left(cmd.angle_increment)
+			elif c == '-':
+				turtle.right(cmd.angle_increment)
+
 		cmd.evolve()
-		print 'Next:', cmd.command_string, cmd.step_size
+
+	win.exitonclick()
 

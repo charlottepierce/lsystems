@@ -15,7 +15,7 @@ if __name__ == '__main__':
 #
 # 	win.exitonclick()
 
-	cmd = CommandString('b', {'a' : 'ab', 'b' : 'a'}, 1, 1)
+	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 1, 1)
 
 	print 'Intial:', cmd.command_string, cmd.step_size
 	for x in range(5):

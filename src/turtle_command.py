@@ -47,7 +47,7 @@ class CommandString():
 
 		# create new command string
 		prev = self.command_string
-		self.command_string = ''.join([self.productions[char] for char in self.command_string])
+		self.command_string = ''.join([self.productions[char] if char in self.productions.keys() else char for char in self.command_string])
  		# reduce step size appropriately
 		divisor = float(len(self.command_string)) / float(len(prev))
 		self.step_size /= divisor

@@ -8,8 +8,8 @@ class CommandString():
 	There are four possible commands for a turtle:
 		'F': move forward one step whilst drawing a line
 		'f': move forward one step without drawing a line
-		'+': turn one angle increment left
-		'-': turn one angle increment right
+		'+': turn one angle increment right
+		'-': turn one angle increment left
 
 	'''
 

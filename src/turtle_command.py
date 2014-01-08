@@ -5,6 +5,12 @@ class CommandString():
 	a single movement - and a series of rules by which the movement pattern
 	evolves over time.
 
+	There are four possible commands for a turtle:
+		'F': move forward one step whilst drawing a line
+		'f': move forward one step without drawing a line
+		'+': turn one angle increment left
+		'-': turn one angle increment right
+
 	'''
 
 	def __init__(self, initiator, productions, step_size, angle_inc):

@@ -8,6 +8,7 @@ if __name__ == '__main__':
 	win.title('L-Systems with turtle graphics')
 
 	turtle = turtle.Turtle()
+	turtle.setheading(90)
 	turtle.pensize(1)
 	turtle.hideturtle() # speeds up drawing significantly
 	turtle.speed(0) # disable animation
@@ -17,7 +18,7 @@ if __name__ == '__main__':
 	cmd = CommandString('F', {'F' : 'F[+F]F[-F]F'}, 5, 25.7)
 
 	state_stack = []
-	for x in range(5):
+	for x in range(7):
 		print 'Command:', cmd.command_string, '(' + str(cmd.step_size) + ')'
 		for c in cmd.command_string:
 			if c == 'F':
@@ -33,13 +34,15 @@ if __name__ == '__main__':
 			elif c == '[':
 				state_stack.append((turtle.pos(), turtle.heading()))
 			elif c == ']':
+				turtle.penup()
 				pos, heading = state_stack.pop()
 				turtle.setpos(pos)
 				turtle.setheading(heading)
 
 		cmd.evolve()
 		turtle.penup()
-		turtle.home()
+		turtle.setpos(start_pos)
+		turtle.setheading(start_heading)
 
 	print 'Done'
 

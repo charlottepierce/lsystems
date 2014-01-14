@@ -14,8 +14,9 @@ if __name__ == '__main__':
 	start_pos = turtle.pos()
 	start_heading = turtle.heading()
 
-	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 200, 90)
+	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 20, 90)
 
+	state_stack = []
 	for x in range(5):
 		print 'Command:', cmd.command_string, '(' + str(cmd.step_size) + ')'
 		for c in cmd.command_string:
@@ -29,6 +30,12 @@ if __name__ == '__main__':
 				turtle.right(cmd.angle_increment)
 			elif c == '-':
 				turtle.left(cmd.angle_increment)
+			elif c == '[':
+				state_stack.append((turtle.pos(), turtle.heading()))
+			elif c == ']':
+				pos, heading = state_stack.pop()
+				turtle.setpos(pos)
+				turtle.setheading(heading)
 
 		cmd.evolve()
 		turtle.penup()

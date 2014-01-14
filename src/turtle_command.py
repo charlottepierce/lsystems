@@ -10,6 +10,8 @@ class CommandString():
 		'f': move forward one step without drawing a line
 		'+': turn one angle increment right
 		'-': turn one angle increment left
+		'[': push current turtle state onto stack
+		']': pop turtle state from the stack
 
 	'''
 
@@ -49,6 +51,4 @@ class CommandString():
 		prev = self.command_string
 		self.command_string = ''.join([self.productions[char] if char in self.productions.keys() else char for char in self.command_string])
  		# TODO: find out if appropriate step size change can be calculated
-# 		divisor = float(len(self.command_string)) / float(len(prev))
-		self.step_size /= 4.0
 

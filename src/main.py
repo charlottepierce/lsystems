@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import random
 import turtle as t
 from turtle_command import CommandString
 
@@ -12,23 +13,35 @@ class LSystemDemo:
 		# set up key bindings
 		self.win.onkey(self.next_evolution, "n")
 		self.win.onkey(self.close, "Escape")
-		t.listen()
+		# store initial turtle position
+		self.init_pos, self.init_heading = self.turtle.pos(), self.turtle.heading()
 
+		self.draw()
+		t.listen()
 		t.mainloop()
 
 	def next_evolution(self):
+		# reset turtle position, change colour
+		self.turtle.setpos(self.init_pos)
+		self.turtle.setheading(self.init_heading)
+		self.random_pen()
+
 		print 'Evolving command string ...',
 		cmd.evolve()
 		print 'done'
 
 		print 'Drawing ...',
-		self.draw_shape()
+		self.draw()
 		print 'done'
 
 	def close(self):
 		self.win.bye()
 
-	def draw_shape(self):
+	def random_pen(self):
+		r, g, b = random.random(), random.random(), random.random()
+		self.turtle.pencolor(r, g, b)
+
+	def draw(self):
 		for c in self.cmd.command_string:
 			if c == 'F':
 				self.turtle.pendown()
@@ -66,7 +79,7 @@ if __name__ == '__main__':
 	turtle.backward((win.window_height() / 3.0))
 
 	# Edge rewriting
-	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 2, 90)
+	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 4, 90)
 # 	cmd = CommandString('F', {'F' : 'F[+F]F[-F]F'}, 5, 25.7)
 # 	cmd = CommandString('F', {'F' : 'F[+F]F[-F][F]'}, 5, 20)
 # 	cmd = CommandString('F', {'F' : 'FF-[-F+F+]+[+F-F-F]'}, 5, 22.5)

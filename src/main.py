@@ -12,15 +12,16 @@ class LSystemDemo:
 		# set up key bindings
 		self.win.onkey(self.next_evolution, "n")
 		self.win.onkey(self.close, "Escape")
+		t.listen()
 
 		t.mainloop()
 
 	def next_evolution(self):
-		print 'Evolving command string', '...',
+		print 'Evolving command string ...',
 		cmd.evolve()
 		print 'done'
 
-		print 'Drawing...',
+		print 'Drawing ...',
 		self.draw_shape()
 		print 'done'
 

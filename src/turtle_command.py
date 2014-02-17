@@ -50,5 +50,4 @@ class CommandString():
 		# create new command string
 		prev = self.command_string
 		self.command_string = ''.join([self.productions[char] if char in self.productions.keys() else char for char in self.command_string])
- 		# TODO: find out if appropriate step size change can be calculated
 

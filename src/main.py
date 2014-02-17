@@ -1,37 +1,60 @@
 #!/usr/bin/python
 
-import turtle
+import turtle as t
 from turtle_command import CommandString
 
-def draw_shape(turtle, command_string):
-	''' Draw the shape described by the given command string and turtle. '''
+class LSystemDemo:
+	def __init__(self, win, turtle, cmd):
+		self.win = win
+		self.turtle = turtle
+		self.cmd = cmd
+		self.state_stack = []
+		# set up key bindings
+		self.win.onkey(self.next_evolution, "n")
+		self.win.onkey(self.close, "Escape")
 
-	for c in command_string:
-		if c == 'F':
-			turtle.pendown()
-			turtle.forward(cmd.step_size)
-		elif c == 'f':
-			turtle.penup()
-			turtle.forward(cmd.step_size)
-		elif c == '+':
-			turtle.right(cmd.angle_increment)
-		elif c == '-':
-			turtle.left(cmd.angle_increment)
-		elif c == '[':
-			state_stack.append((turtle.pos(), turtle.heading()))
-		elif c == ']':
-			turtle.penup()
-			pos, heading = state_stack.pop()
-			turtle.setpos(pos)
-			turtle.setheading(heading)
+		t.mainloop()
+
+	def next_evolution(self):
+		print 'Evolving command string', '...',
+		cmd.evolve()
+		print 'done'
+
+		print 'Drawing...',
+		self.draw_shape()
+		print 'done'
+
+	def close(self):
+		self.win.bye()
+
+	def draw_shape(self):
+		for c in self.cmd.command_string:
+			if c == 'F':
+				self.turtle.pendown()
+				self.turtle.forward(cmd.step_size)
+			elif c == 'f':
+				self.turtle.penup()
+				self.turtle.forward(cmd.step_size)
+			elif c == '+':
+				self.turtle.right(cmd.angle_increment)
+			elif c == '-':
+				self.turtle.left(cmd.angle_increment)
+			elif c == '[':
+				self.state_stack.append((self.turtle.pos(), self.turtle.heading()))
+			elif c == ']':
+				self.turtle.penup()
+				pos, heading = self.state_stack.pop()
+				self.turtle.setpos(pos)
+				self.turtle.setheading(heading)
 
 if __name__ == '__main__':
-	win = turtle.Screen()
+	# initialise window
+	win = t.Screen()
 	win.title('L-Systems with turtle graphics')
 	win.delay(0) # do not delay drawing at all
-	print 'Win height:', win.window_height()
 
-	turtle = turtle.Turtle()
+	# initialise turtle
+	turtle = t.Turtle()
 	turtle.setheading(90)
 	turtle.pensize(1)
 	turtle.hideturtle() # speeds up drawing significantly
@@ -55,15 +78,7 @@ if __name__ == '__main__':
 	print 'Initiator: ', cmd.command_string
 	print 'Productions:'
 	for prev, replacement in cmd.productions.iteritems():
-		print ' -', prev, ' -> ', replacement
+		print ' *', prev, '->', replacement
 
-	state_stack = []
-	for x in range(5):
-		print 'Evolving command string', str(x), '...',
-		cmd.evolve()
-		print 'done'
-
-	print 'Drawing...',
-	draw_shape(turtle, cmd.command_string)
-	print 'done'
+	demo = LSystemDemo(win, turtle, cmd)
 

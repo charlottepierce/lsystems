@@ -9,9 +9,13 @@ class LSystemDemo:
 		self.win = win
 		self.turtle = turtle
 		self.cmd = cmd
+		self.overwrite = False
 		self.state_stack = []
 		# set up key bindings
+		self.win.onkey(self.reset, "r")
 		self.win.onkey(self.next_evolution, "n")
+		self.win.onkey(self.clear, "c")
+		self.win.onkey(self.toggle_overwrite, "o")
 		self.win.onkey(self.close, "Escape")
 		# store initial turtle position
 		self.init_pos, self.init_heading = self.turtle.pos(), self.turtle.heading()
@@ -21,10 +25,14 @@ class LSystemDemo:
 		t.mainloop()
 
 	def next_evolution(self):
-		# reset turtle position, change colour
+		# reset turtle position, change pen colour if necessary
+		self.turtle.penup()
 		self.turtle.setpos(self.init_pos)
 		self.turtle.setheading(self.init_heading)
-		self.random_pen()
+		if not self.overwrite:
+			self.random_pen()
+		else:
+			self.clear()
 
 		print 'Evolving command string ...',
 		cmd.evolve()
@@ -34,12 +42,20 @@ class LSystemDemo:
 		self.draw()
 		print 'done'
 
-	def close(self):
-		self.win.bye()
+	def clear(self):
+		self.turtle.clear()
+		print "[canvas cleared]"
+
+	def toggle_overwrite(self):
+		self.overwrite = not self.overwrite
+		print "Clearing after evolution:", self.overwrite
 
 	def random_pen(self):
 		r, g, b = random.random(), random.random(), random.random()
 		self.turtle.pencolor(r, g, b)
+
+	def close(self):
+		self.win.bye()
 
 	def draw(self):
 		for c in self.cmd.command_string:
@@ -61,6 +77,18 @@ class LSystemDemo:
 				self.turtle.setpos(pos)
 				self.turtle.setheading(heading)
 
+	def reset(self):
+		self.cmd.reset()
+
+		self.clear()
+		self.turtle.penup()
+		self.turtle.setpos(self.init_pos)
+		self.turtle.setheading(self.init_heading)
+
+		self.turtle.pencolor("black")
+		self.draw()
+		print "[demo reset]"
+
 if __name__ == '__main__':
 	# initialise window
 	win = t.Screen()
@@ -79,7 +107,7 @@ if __name__ == '__main__':
 	turtle.backward((win.window_height() / 3.0))
 
 	# Edge rewriting
-	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 4, 90)
+	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 10, 90)
 # 	cmd = CommandString('F', {'F' : 'F[+F]F[-F]F'}, 5, 25.7)
 # 	cmd = CommandString('F', {'F' : 'F[+F]F[-F][F]'}, 5, 20)
 # 	cmd = CommandString('F', {'F' : 'FF-[-F+F+]+[+F-F-F]'}, 5, 22.5)

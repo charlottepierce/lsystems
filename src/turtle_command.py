@@ -33,6 +33,7 @@ class CommandString():
 
 		'''
 
+		self.initiator = initiator
 		self.command_string = initiator
 		self.productions = productions
 		self.step_size = step_size
@@ -50,4 +51,9 @@ class CommandString():
 		# create new command string
 		prev = self.command_string
 		self.command_string = ''.join([self.productions[char] if char in self.productions.keys() else char for char in self.command_string])
+
+	def reset(self):
+		''' Reset the command string to describe the base shape. '''
+
+		self.command_string = self.initiator
 

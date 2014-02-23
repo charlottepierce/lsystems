@@ -108,8 +108,8 @@ if __name__ == '__main__':
 
 	# Edge rewriting
 	cmd = CommandString('F-F-F-F', {'F' : 'F-F+F+FF-F-F+F'}, 10, 90)
-# 	cmd = CommandString('F', {'F' : 'F[+F]F[-F]F'}, 5, 25.7)
-# 	cmd = CommandString('F', {'F' : 'F[+F]F[-F][F]'}, 5, 20)
+#  	cmd = CommandString('F', {'F' : 'F[+F]F[-F]F'}, 5, 25.7)
+# 	cmd = CommandString('F', {'F' : 'F[+F]F[-F][F]'}, 5, 30)
 # 	cmd = CommandString('F', {'F' : 'FF-[-F+F+]+[+F-F-F]'}, 5, 22.5)
 
 	# Node rewriting
